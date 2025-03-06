@@ -1,4 +1,4 @@
-# FashionCorner - Next.js 14 Fullstack Ecommerce Jewellery app
+# SHOP - Next.js 14 Fullstack Ecommerce Jewellery app
 
 Features:
 
