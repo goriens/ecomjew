@@ -6,6 +6,9 @@ import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
+import { FcGoogle } from 'react-icons/fc';
+
+import { Button } from '@/components/ui/button';
 
 type Inputs = {
   name: string;
@@ -16,7 +19,6 @@ type Inputs = {
 
 const Form = () => {
   const { data: session } = useSession();
-
   const params = useSearchParams();
   const router = useRouter();
   let callbackUrl = params.get('callbackUrl') || '/';
@@ -74,7 +76,7 @@ const Form = () => {
   };
 
   return (
-    <div className='card mx-auto my-4 max-w-sm bg-base-300'>
+    <div className='card mx-auto my-4 mt-10 max-w-lg bg-base-300'>
       <div className='card-body'>
         <h1 className='card-title'>Register</h1>
         <form onSubmit={handleSubmit(formSubmit)}>
@@ -88,7 +90,8 @@ const Form = () => {
               {...register('name', {
                 required: 'Name is required',
               })}
-              className='input input-bordered w-full max-w-sm'
+              placeholder='John'
+              className='input input-bordered w-full max-w-lg'
             />
             {errors.name?.message && (
               <div className='text-error'>{errors.name.message}</div>
@@ -108,7 +111,8 @@ const Form = () => {
                   message: 'Email is invalid',
                 },
               })}
-              className='input input-bordered w-full max-w-sm'
+              placeholder='Deo'
+              className='input input-bordered w-full max-w-lg'
             />
             {errors.email?.message && (
               <div className='text-error'> {errors.email.message}</div>
@@ -124,7 +128,8 @@ const Form = () => {
               {...register('password', {
                 required: 'Password is required',
               })}
-              className='input input-bordered w-full max-w-sm'
+              placeholder='********'
+              className='input input-bordered w-full max-w-lg'
             />
             {errors.password?.message && (
               <div className='text-error'>{errors.password.message}</div>
@@ -144,7 +149,8 @@ const Form = () => {
                   return password === value || 'Passwords should match!';
                 },
               })}
-              className='input input-bordered w-full max-w-sm'
+              placeholder='********'
+              className='input input-bordered w-full max-w-lg'
             />
             {errors.confirmPassword?.message && (
               <div className='text-error'>{errors.confirmPassword.message}</div>
@@ -164,8 +170,15 @@ const Form = () => {
           </div>
         </form>
 
-        <div className='divider'> </div>
-        <div>
+        <div className='divider'>OR </div>
+        {/* <div>
+          <Button className='mb-2 w-full text-black' variant='outline'>
+            <FcGoogle size={22} className='mr-1' />
+            Continue With Google
+          </Button>
+        </div> */}
+
+        <div className='text-sm'>
           Already have an account?{' '}
           <Link className='link' href={`/signin?callbackUrl=${callbackUrl}`}>
             Login

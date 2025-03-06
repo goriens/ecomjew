@@ -21,12 +21,12 @@ export const metadata: Metadata = {
 const HomePage = () => {
   return (
     <div className='my-8 flex flex-col gap-4 md:gap-16'>
-      <div>
+      {/* <div>
         <Suspense fallback={<CarouselSkeleton />}>
           <Carousel />
         </Suspense>
-      </div>
-      <div className='flex flex-col gap-8 md:flex-row'>
+      </div> */}
+      {/* <div className='flex flex-col gap-8 md:flex-row'>
         <div className='flex-1'>
           <p className='text-nowrap text-4xl font-semibold md:text-6xl'>
             Simply Unique/ <br /> Simply Better.
@@ -39,23 +39,22 @@ const HomePage = () => {
             Vietnam. Est since 2019.
           </div>
         </div>
-      </div>
-      <Categories />
-      <Icons />
-
-      <Suspense
+      </div> */}
+      {/* <Categories /> */}
+      {/* <Icons /> */}
+      {/* <Suspense
         fallback={<ProductItemsSkeleton qty={8} name='Latest Products' />}
       >
         <ProductItems />
-      </Suspense>
+      </Suspense> */}
 
       <Suspense fallback={<ProductItemsSkeleton qty={4} name='Top Rated' />}>
         <Slider />
       </Suspense>
 
-      <ReadMore>
+      {/* <ReadMore>
         <Text />
-      </ReadMore>
+      </ReadMore> */}
     </div>
   );
 };

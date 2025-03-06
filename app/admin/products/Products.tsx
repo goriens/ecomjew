@@ -61,7 +61,7 @@ export default function Products() {
         <h1 className='py-4 text-2xl'>Products</h1>
         <button
           disabled={isCreating}
-          onClick={() => createProduct()}
+          onClick={() => router.push(`/admin/products/add`)}
           className='btn btn-primary btn-sm'
         >
           {isCreating && <span className='loading loading-spinner'></span>}

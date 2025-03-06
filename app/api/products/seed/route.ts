@@ -7,6 +7,7 @@ import dbConnect from '@/lib/dbConnect';
 
 export const GET = async (request: NextRequest) => {
   const { users, products } = data;
+  console.log('suhaibbbbbbbbbb', data);
   await dbConnect();
   // await UserModel.deleteMany();
   // await UserModel.insertMany(users);

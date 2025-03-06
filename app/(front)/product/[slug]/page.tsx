@@ -67,7 +67,8 @@ const ProductPage = async ({ params }: { params: { slug: string } }) => {
                 caption={`${product.numReviews} ratings`}
               />
             </li>
-            <li>{product.brand}</li>
+            <li>Brand</li>
+            <li>{product.category}</li>
             <li>
               <div className='divider'></div>
             </li>

@@ -7,14 +7,13 @@ export type Product = {
   image: string;
   banner?: string;
   price: number;
-  brand: string;
+  makingCharge?: string;
+  materialCost: string;
   description: string;
   category: string;
   rating: number;
   numReviews: number;
   countInStock: number;
-  colors?: [];
-  sizes?: [];
 };
 
 const productSchema = new mongoose.Schema(
@@ -24,7 +23,8 @@ const productSchema = new mongoose.Schema(
     category: { type: String, required: true },
     image: { type: String, required: true },
     price: { type: Number, required: true },
-    brand: { type: String, required: true },
+    makingCharge: Number,
+    materialCost: { type: Number, required: true },
     rating: { type: Number, required: true, default: 0 },
     numReviews: { type: Number, required: true, default: 0 },
     countInStock: { type: Number, required: true, default: 0 },

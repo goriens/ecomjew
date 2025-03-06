@@ -26,26 +26,54 @@ export const POST = auth(async (req: any) => {
     );
   }
   await dbConnect();
-  const product = new ProductModel({
-    name: 'sample name',
-    slug: 'sample-name-' + Math.random(),
-    image:
-      'https://res.cloudinary.com/dqxlehni0/image/upload/v1715622109/No_Image_Available_kbdno1.jpg',
-    price: 0,
-    category: 'sample category',
-    brand: 'sample brand',
-    countInStock: 0,
-    description: 'sample description',
-    rating: 0,
-    numReviews: 0,
-  });
   try {
-    await product.save();
+    const {
+      name,
+      slug,
+      image,
+      price,
+      makingCharge,
+      materialCost,
+      category,
+      countInStock,
+      description,
+    } = await req.json();
+    if (
+      !name ||
+      !slug ||
+      !price ||
+      !makingCharge ||
+      !materialCost ||
+      !category ||
+      !countInStock ||
+      !description
+    ) {
+      return Response.json(
+        { message: 'All fields are required' },
+        { status: 400 },
+      );
+    }
+
+    const newProduct = new ProductModel({
+      name,
+      slug,
+      image:
+        image ||
+        'https://res.cloudinary.com/dqxlehni0/image/upload/v1715622109/No_Image_Available_kbdno1.jpg',
+      price,
+      makingCharge,
+      materialCost,
+      category,
+      countInStock,
+      description,
+      rating: 0,
+      numReviews: 0,
+    });
+
+    await newProduct.save();
     return Response.json(
-      { message: 'Product created successfully', product },
-      {
-        status: 201,
-      },
+      { message: 'Product created successfully', product: newProduct },
+      { status: 201 },
     );
   } catch (err: any) {
     return Response.json(

@@ -38,7 +38,7 @@ const ProductItem = async ({ product }: { product: Product }) => {
           </h3>
         </Link>
         <Rating value={product.rating} caption={`(${product.name})`} isCard />
-        <p className='line-clamp-1'>{product.brand}</p>
+        <p className='line-clamp-1'>Brand test</p>
         <div className='card-actions flex items-center justify-between'>
           <span className='text-2xl'>${product.price}</span>
         </div>

@@ -5,20 +5,17 @@ import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { ValidationRule, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import useSWR from 'swr';
 import useSWRMutation from 'swr/mutation';
 
 import { Product } from '@/lib/models/ProductModel';
-import { formatId } from '@/lib/utils';
 
-export default function ProductEditForm({ productId }: { productId: string }) {
-  const { data: product, error } = useSWR(`/api/admin/products/${productId}`);
+export default function ProductAddForm() {
   const router = useRouter();
-  const { trigger: updateProduct, isMutating: isUpdating } = useSWRMutation(
-    `/api/admin/products/${productId}`,
+  const { trigger: createProduct, isMutating: isCreating } = useSWRMutation(
+    '/api/admin/products',
     async (url, { arg }) => {
-      const res = await fetch(`${url}`, {
-        method: 'PUT',
+      const res = await fetch(url, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -27,7 +24,7 @@ export default function ProductEditForm({ productId }: { productId: string }) {
       const data = await res.json();
       if (!res.ok) return toast.error(data.message);
 
-      toast.success('Product updated successfully');
+      toast.success('Product added successfully');
       router.push('/admin/products');
     },
   );
@@ -39,36 +36,21 @@ export default function ProductEditForm({ productId }: { productId: string }) {
     setValue,
   } = useForm<Product>();
 
-  useEffect(() => {
-    if (!product) return;
-    setValue('name', product.name);
-    setValue('slug', product.slug);
-    setValue('price', product.price);
-    setValue('makingCharge', product.makingCharge);
-    setValue('materialCost', product.materialCost);
-    setValue('image', product.image);
-    setValue('category', product.category);
-    setValue('countInStock', product.countInStock);
-    setValue('description', product.description);
-  }, [product, setValue]);
-
   const formSubmit = async (formData: any) => {
-    await updateProduct(formData);
+    await createProduct(formData);
   };
-
-  if (error) return error.message;
-
-  if (!product) return 'Loading...';
 
   const FormInput = ({
     id,
     name,
     required,
     pattern,
+    placeholder,
   }: {
     id: keyof Product;
     name: string;
     required?: boolean;
+    placeholder?: string;
     pattern?: ValidationRule<RegExp>;
   }) => (
     <div className='mb-6 md:flex'>
@@ -79,6 +61,7 @@ export default function ProductEditForm({ productId }: { productId: string }) {
         <input
           type='text'
           id={id}
+          placeholder={placeholder}
           {...register(id, {
             required: required && `${name} is required`,
             pattern,
@@ -127,12 +110,27 @@ export default function ProductEditForm({ productId }: { productId: string }) {
 
   return (
     <div>
-      <h1 className='py-4 text-2xl'>Edit Product {formatId(productId)}</h1>
+      <h1 className='py-4 text-2xl'>Add New Product</h1>
       <div>
         <form onSubmit={handleSubmit(formSubmit)}>
-          <FormInput name='Name' id='name' required />
-          <FormInput name='Slug' id='slug' required />
-          <FormInput name='Image' id='image' required />
+          <FormInput
+            name='Name'
+            id='name'
+            required
+            placeholder='Product Name'
+          />
+          <FormInput
+            name='Slug'
+            id='slug'
+            required
+            placeholder='Product Slug'
+          />
+          <FormInput
+            name='Image'
+            id='image'
+            required
+            placeholder='Image URL (Only cloudinary images allowed)'
+          />
           <div className='mb-6 md:flex'>
             <label className='label md:w-1/5' htmlFor='imageFile'>
               Upload Image
@@ -146,20 +144,45 @@ export default function ProductEditForm({ productId }: { productId: string }) {
               />
             </div>
           </div>
-          <FormInput name='Price' id='price' required />
-          <FormInput name='Material Cost' id='materialCost' required />
-          <FormInput name='Making Charge' id='makingCharge' required />
-          <FormInput name='Category' id='category' required />
-          <FormInput name='Description' id='description' required />
-          <FormInput name='Count In Stock' id='countInStock' required />
+          <FormInput name='Price' id='price' required placeholder='300' />
+          <FormInput
+            name='Material Cost'
+            id='materialCost'
+            required
+            placeholder='200'
+          />
+          <FormInput
+            name='Making Charges'
+            id='makingCharge'
+            required
+            placeholder='150'
+          />
+          <FormInput
+            name='Category'
+            id='category'
+            required
+            placeholder='Product Category'
+          />
+          <FormInput
+            name='Description'
+            id='description'
+            required
+            placeholder='Product Description'
+          />
+          <FormInput
+            name='Count In Stock'
+            id='countInStock'
+            required
+            placeholder='Stock Count'
+          />
 
           <button
             type='submit'
-            disabled={isUpdating}
+            disabled={isCreating}
             className='btn btn-primary'
           >
-            {isUpdating && <span className='loading loading-spinner'></span>}
-            Update
+            {isCreating && <span className='loading loading-spinner'></span>}
+            Add Product
           </button>
           <Link className='btn ml-4 ' href='/admin/products'>
             Cancel
