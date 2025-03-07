@@ -1,77 +1,36 @@
-import Link from 'next/link';
+'use client';
 
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import ProductItem from '@/components/products/ProductItem';
 import { Rating } from '@/components/products/Rating';
-import productServices from '@/lib/services/productService';
+import productService from '@/lib/services/productService.client';
 
 const sortOrders = ['newest', 'lowest', 'highest', 'rating'];
 const prices = [
-  {
-    name: '₹1 to ₹50',
-    value: '1-50',
-  },
-  {
-    name: '₹51 to ₹200',
-    value: '51-200',
-  },
-  {
-    name: '₹201 to ₹1000',
-    value: '201-1000',
-  },
+  { name: '₹1 to ₹50', value: '1-50' },
+  { name: '₹51 to ₹200', value: '51-200' },
+  { name: '₹201 to ₹1000', value: '201-1000' },
 ];
-
 const ratings = [5, 4, 3, 2, 1];
 
-export function generateMetadata({
-  searchParams: { q = 'all', category = 'all', price = 'all', rating = 'all' },
-}: {
-  searchParams: {
-    q: string;
-    category: string;
-    price: string;
-    rating: string;
-    sort: string;
-    page: string;
-  };
-}) {
-  if (
-    (q !== 'all' && q !== '') ||
-    category !== 'all' ||
-    rating !== 'all' ||
-    price !== 'all'
-  ) {
-    return {
-      title: `Search ${q !== 'all' ? q : ''}
-          ${category !== 'all' ? ` : Category ${category}` : ''}
-          ${price !== 'all' ? ` : Price ${price}` : ''}
-          ${rating !== 'all' ? ` : Rating ${rating}` : ''}`,
-    };
-  } else {
-    return {
-      title: 'Search Products',
-    };
-  }
-}
+export default function SearchPage() {
+  const searchParams = useSearchParams();
 
-export default async function SearchPage({
-  searchParams: {
-    q = 'all',
-    category = 'all',
-    price = 'all',
-    rating = 'all',
-    sort = 'newest',
-    page = '1',
-  },
-}: {
-  searchParams: {
-    q: string;
-    category: string;
-    price: string;
-    rating: string;
-    sort: string;
-    page: string;
-  };
-}) {
+  const [categories, setCategories] = useState<string[]>([]);
+  const [products, setProducts] = useState<any[]>([]);
+  const [countProducts, setCountProducts] = useState(0);
+  const [pages, setPages] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  const q = searchParams.get('q') || 'all';
+  const category = searchParams.get('category') || 'all';
+  const price = searchParams.get('price') || 'all';
+  const rating = searchParams.get('rating') || 'all';
+  const sort = searchParams.get('sort') || 'newest';
+  const page = searchParams.get('page') || '1';
+
   const getFilterUrl = ({
     c,
     s,
@@ -85,23 +44,49 @@ export default async function SearchPage({
     r?: string;
     pg?: string;
   }) => {
-    const params = { q, category, price, rating, sort, page };
-    if (c) params.category = c;
-    if (p) params.price = p;
-    if (r) params.rating = r;
-    if (pg) params.page = pg;
-    if (s) params.sort = s;
-    return `/search?${new URLSearchParams(params).toString()}`;
+    const params = new URLSearchParams(searchParams);
+    if (c) params.set('category', c);
+    if (p) params.set('price', p);
+    if (r) params.set('rating', r);
+    if (pg) params.set('page', pg);
+    if (s) params.set('sort', s);
+    return `/search?${params.toString()}`;
   };
-  const categories = await productServices.getCategories();
-  const { countProducts, products, pages } = await productServices.getByQuery({
-    category,
-    q,
-    price,
-    rating,
-    page,
-    sort,
-  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const data = await productService.getByQuery({
+          category,
+          q,
+          price,
+          rating,
+          page,
+          sort,
+        });
+
+        setCategories(data.categories);
+        setProducts(data.products);
+        setCountProducts(data.countProducts);
+        setPages(data.pages);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [q, category, price, rating, sort, page]);
+
+  if (loading) {
+    return (
+      <div className='flex h-screen items-center justify-center'>
+        Loading...
+      </div>
+    );
+  }
 
   return (
     <div className='my-5 grid p-4 md:grid-cols-5 md:gap-5 md:p-8'>
@@ -126,24 +111,16 @@ export default async function SearchPage({
           <ul className='flex flex-col gap-2'>
             <li>
               <Link
-                className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                  'all' === category
-                    ? 'bg-primary/75 text-white shadow-md'
-                    : 'hover:bg-base-100 hover:shadow-sm'
-                }`}
+                className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${'all' === category ? 'bg-primary/75 text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
                 href={getFilterUrl({ c: 'all' })}
               >
                 All Categories
               </Link>
             </li>
-            {categories.map((c: string) => (
+            {categories.map((c) => (
               <li key={c}>
                 <Link
-                  className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                    c === category
-                      ? 'bg-primary text-white shadow-md'
-                      : 'hover:bg-base-100 hover:shadow-sm'
-                  }`}
+                  className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${c === category ? 'bg-primary text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
                   href={getFilterUrl({ c })}
                 >
                   {c}
@@ -173,11 +150,7 @@ export default async function SearchPage({
           <ul className='flex flex-col gap-2'>
             <li>
               <Link
-                className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                  'all' === price
-                    ? 'bg-primary/75 text-white shadow-md'
-                    : 'hover:bg-base-100 hover:shadow-sm'
-                }`}
+                className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${'all' === price ? 'bg-primary/75 text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
                 href={getFilterUrl({ p: 'all' })}
               >
                 All Price
@@ -186,11 +159,7 @@ export default async function SearchPage({
             {prices.map((p) => (
               <li key={p.value}>
                 <Link
-                  className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                    p.value === price
-                      ? 'bg-primary text-white shadow-md'
-                      : 'hover:bg-base-100 hover:shadow-sm'
-                  }`}
+                  className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${p.value === price ? 'bg-primary text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
                   href={getFilterUrl({ p: p.value })}
                 >
                   {p.name}
@@ -220,11 +189,7 @@ export default async function SearchPage({
           <ul className='flex flex-col gap-2'>
             <li>
               <Link
-                className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                  'all' === rating
-                    ? 'bg-primary/75 text-white shadow-md'
-                    : 'hover:bg-base-100 hover:shadow-sm'
-                }`}
+                className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${'all' === rating ? 'bg-primary/75 text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
                 href={getFilterUrl({ r: 'all' })}
               >
                 All Ratings
@@ -233,11 +198,7 @@ export default async function SearchPage({
             {ratings.map((r) => (
               <li key={r}>
                 <Link
-                  className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                    `${r}` === rating
-                      ? 'bg-primary/75 text-white shadow-md'
-                      : 'hover:bg-base-100 hover:shadow-sm'
-                  }`}
+                  className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${`${r}` === rating ? 'bg-primary/75 text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
                   href={getFilterUrl({ r: `${r}` })}
                 >
                   <Rating caption={' & up'} value={r} />
@@ -251,9 +212,7 @@ export default async function SearchPage({
       <div className='rounded-lg bg-base-100 p-6 shadow-xl md:col-span-4'>
         {/* Filters and Results Summary */}
         <div className='flex flex-col justify-between gap-4 py-4 md:flex-row'>
-          {/* Filters Box */}
           <div className='flex flex-col gap-4'>
-            {/* Results and Filters Section */}
             <div className='flex flex-wrap items-center gap-3'>
               <span className='text-xl font-bold text-gray-800'>
                 {products.length === 0 ? 'No' : countProducts} Results
@@ -328,7 +287,6 @@ export default async function SearchPage({
               )}
             </div>
 
-            {/* Clear Filters Button */}
             {(q !== 'all' && q !== '') ||
             category !== 'all' ||
             rating !== 'all' ||
@@ -354,17 +312,12 @@ export default async function SearchPage({
             ) : null}
           </div>
 
-          {/* Sort Box */}
-          <div className='bg- flex flex-col gap-4 rounded-lg'>
+          <div className='flex flex-col gap-4 rounded-lg'>
             <div className='flex flex-wrap gap-3'>
               {sortOrders.map((s) => (
                 <Link
                   key={s}
-                  className={`btn btn-sm ${
-                    sort === s
-                      ? 'btn-primary transform transition-all duration-200 hover:scale-110'
-                      : 'btn-ghost transform bg-base-100 transition-all duration-200 hover:scale-105 hover:bg-base-300'
-                  } rounded-full px-6 font-medium capitalize shadow-sm`}
+                  className={`btn btn-sm ${sort === s ? 'btn-primary transform transition-all duration-200 hover:scale-110' : 'btn-ghost transform bg-base-100 transition-all duration-200 hover:scale-105 hover:bg-base-300'} rounded-full px-6 font-medium capitalize shadow-sm`}
                   href={getFilterUrl({ s })}
                 >
                   {sort === s && (
@@ -388,7 +341,6 @@ export default async function SearchPage({
           </div>
         </div>
 
-        {/* Product Grid */}
         <div className='mt-6 grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
           {products.map((product) => (
             <div
@@ -400,18 +352,13 @@ export default async function SearchPage({
           ))}
         </div>
 
-        {/* Pagination */}
         {products.length > 0 && (
           <div className='mt-8 flex justify-center'>
             <div className='join'>
               {Array.from(Array(pages).keys()).map((p) => (
                 <Link
                   key={p}
-                  className={`btn join-item ${
-                    Number(page) === p + 1
-                      ? 'btn-active bg-primary text-white'
-                      : 'bg-base-200 hover:bg-base-300'
-                  }`}
+                  className={`btn join-item ${Number(page) === p + 1 ? 'btn-active bg-primary text-white' : 'bg-base-200 hover:bg-base-300'}`}
                   href={getFilterUrl({ pg: `${p + 1}` })}
                 >
                   {p + 1}
