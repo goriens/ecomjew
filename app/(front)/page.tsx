@@ -20,35 +20,24 @@ export const metadata: Metadata = {
 
 const HomePage = () => {
   return (
-    <div className='my-8 flex flex-col gap-4 md:gap-16'>
-      {/* <div>
+    <div className='flex w-full flex-col gap-4 md:gap-16'>
+      <div>
         <Suspense fallback={<CarouselSkeleton />}>
           <Carousel />
         </Suspense>
-      </div> */}
-      {/* <div className='flex flex-col gap-8 md:flex-row'>
-        <div className='flex-1'>
-          <p className='text-nowrap text-4xl font-semibold md:text-6xl'>
-            Simply Unique/ <br /> Simply Better.
-          </p>
-        </div>
-        <div className='flex flex-1 items-center'>
-          <div>
-            <span className='font-bold'>Fashion Corner</span> is a gift &
-            clothes store based in HCMC, <br className='hidden sm:inline' />
-            Vietnam. Est since 2019.
-          </div>
-        </div>
-      </div> */}
-      {/* <Categories /> */}
-      {/* <Icons /> */}
+      </div>
+      <Icons />
+      <h2 className='mb-4 bg-gradient-to-r from-orange-500 to-purple-900 bg-clip-text text-center text-4xl font-bold text-transparent sm:text-5xl'>
+        CHOOSE OUR COLLECTIONS
+      </h2>
+      <Categories />
       {/* <Suspense
         fallback={<ProductItemsSkeleton qty={8} name='Latest Products' />}
       >
         <ProductItems />
       </Suspense> */}
 
-      <Suspense fallback={<ProductItemsSkeleton qty={4} name='Top Rated' />}>
+      <Suspense fallback={<ProductItemsSkeleton qty={4} name='Top Rated!' />}>
         <Slider />
       </Suspense>
 

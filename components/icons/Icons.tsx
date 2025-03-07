@@ -1,45 +1,102 @@
+'use client';
+
+import { motion } from 'framer-motion';
 import { Truck, Wallet, LockKeyhole, Phone } from 'lucide-react';
 
 const Icons = () => {
+  // Animation variants for the circular layout
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2, // Delay between each child animation
+      },
+    },
+  };
+
+  const iconVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0 },
+    hover: {
+      scale: 1.1,
+      rotate: 10,
+      backgroundColor: 'rgba(99, 102, 241, 0.1)', // Light indigo background on hover
+      transition: { type: 'spring', stiffness: 300 },
+    },
+  };
+
+  // Pulse animation for icons
+  const pulseVariants = {
+    initial: { scale: 1 },
+    pulse: {
+      scale: 1.1,
+      transition: { repeat: Infinity, duration: 1, ease: 'easeInOut' },
+    },
+  };
+
+  // Icons data
+  const iconsData = [
+    {
+      icon: <Truck width={48} height={48} strokeWidth={1} />,
+      title: 'Free Shipping',
+      description: 'Order above $200',
+    },
+    {
+      icon: <Wallet width={48} height={48} strokeWidth={1} />,
+      title: 'Money-back',
+      description: '30 days guarantee',
+    },
+    {
+      icon: <LockKeyhole width={48} height={48} strokeWidth={1} />,
+      title: 'Secure Payments',
+      description: 'Secured by Stripe',
+    },
+    {
+      icon: <Phone width={48} height={48} strokeWidth={1} />,
+      title: '24/7 Support',
+      description: 'Phone and Email support',
+    },
+  ];
+
   return (
-    <div className='grid grid-cols-2 gap-6 gap-x-2 md:gap-x-6 lg:grid-cols-4'>
-      <div className='flex flex-col justify-center gap-4 bg-base-300 px-4 py-8 md:px-12'>
-        <Truck width={48} height={48} strokeWidth={1} />
-        <div className='flex flex-col gap-2'>
-          <p>
-            <strong>Free Shipping</strong>
-          </p>
-          <p>Order above $200</p>
-        </div>
+    <motion.div
+      className='flex items-center justify-center'
+      animate='visible'
+      variants={containerVariants}
+    >
+      {/* Circular Layout */}
+      <div className=' grid grid-cols-1 flex-col gap-5 md:grid-cols-2 lg:grid-cols-4'>
+        {iconsData.map((icon, index) => {
+          const angle = (360 / iconsData.length) * index; // Calculate angle for positioning
+          const radius = 120; // Radius of the circle
+          const x = radius * Math.cos((angle * Math.PI) / 180); // X position
+          const y = radius * Math.sin((angle * Math.PI) / 180); // Y position
+
+          return (
+            <motion.div
+              key={index}
+              className='flex w-full flex-col items-center justify-center gap-2 rounded-lg bg-gradient-to-br from-pink-100 to-purple-100 p-6 shadow-lg backdrop-blur-sm'
+              variants={iconVariants}
+              whileHover='hover'
+            >
+              <motion.div
+                className='text-primary'
+                variants={pulseVariants}
+                initial='initial'
+                animate='pulse'
+              >
+                {icon.icon}
+              </motion.div>
+              <div className='text-center'>
+                <p className='font-bold text-slate-800'>{icon.title}</p>
+                <p className='text-sm text-slate-600'>{icon.description}</p>
+              </div>
+            </motion.div>
+          );
+        })}
       </div>
-      <div className='flex flex-col justify-center gap-4 bg-base-300 px-4 py-8 md:px-12'>
-        <Wallet width={48} height={48} strokeWidth={1} />
-        <div className='flex flex-col gap-2'>
-          <p>
-            <strong>Money-back</strong>
-          </p>
-          <p>30 days guarantee0</p>
-        </div>
-      </div>
-      <div className='flex flex-col justify-center gap-4 bg-base-300 px-4 py-8 md:px-12'>
-        <LockKeyhole width={48} height={48} strokeWidth={1} />
-        <div className='flex flex-col gap-2'>
-          <p>
-            <strong>Secure Payments</strong>
-          </p>
-          <p>Secured by Stripe</p>
-        </div>
-      </div>
-      <div className='flex flex-col justify-center gap-4 bg-base-300 px-4 py-8 md:px-12'>
-        <Phone width={48} height={48} strokeWidth={1} />
-        <div className='flex flex-col gap-2'>
-          <p>
-            <strong>24/7 Support</strong>
-          </p>
-          <p>Phone and Email support</p>
-        </div>
-      </div>
-    </div>
+    </motion.div>
   );
 };
 

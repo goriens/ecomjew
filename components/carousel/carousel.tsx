@@ -1,46 +1,63 @@
+'use client';
+
 import Image from 'next/image';
-import Link from 'next/link';
+import { Autoplay, Navigation, Pagination } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-import {
-  Carousel as SCarousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel';
-import productService from '@/lib/services/productService';
-import { delay } from '@/lib/utils';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
-const Carousel = async () => {
-  await delay(3000);
-  const featuredProducts = await productService.getFeatured();
+const jewelleryImages = [
+  { id: 1, src: '/images/banner/ring1.jpg', alt: 'Diamond Ring' },
+  { id: 2, src: '/images/banner/necklace1.jpg', alt: 'Gold Necklace' },
+  { id: 3, src: '/images/banner/earrings1.webp', alt: 'Pearl Earrings' },
+  { id: 4, src: '/images/banner/bracelet1.jpg', alt: 'Silver Bracelet' },
+];
 
+const Carousel = () => {
   return (
-    <SCarousel opts={{ loop: true }}>
-      <CarouselContent>
-        {featuredProducts.map((product) => (
-          <CarouselItem key={product._id}>
-            <div className='w-full overflow-hidden rounded-lg'>
-              <Link href={`/product/${product.slug}`}>
-                <Image
-                  src={product.banner!}
-                  className='h-[304px] w-full object-cover lg:h-[536px]'
-                  width={1500}
-                  height={300}
-                  alt={product.name}
-                  blurDataURL={product.banner!}
-                  placeholder='blur'
-                  sizes='(max-width: 1500px) 100vw, 1500px'
-                  priority
-                />
-              </Link>
+    <div className='relative z-0 h-[65vh] w-full'>
+      <Swiper
+        modules={[Autoplay, Navigation, Pagination]}
+        spaceBetween={0}
+        slidesPerView={1}
+        loop={true}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        navigation={{
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        }}
+        pagination={{
+          clickable: true,
+          bulletClass: 'swiper-pagination-bullet !bg-white',
+        }}
+        className='h-full w-full'
+      >
+        {jewelleryImages.map((image) => (
+          <SwiperSlide key={image.id}>
+            <div className='group relative h-full w-full'>
+              {/* Image */}
+              <Image
+                src={image.src}
+                alt={image.alt}
+                className='h-full w-full object-cover blur-sm'
+                width={100}
+                height={100}
+                unoptimized
+              />
+
+              <div className='absolute inset-0 bg-opacity-30 bg-gradient-to-r from-yellow-800/50 to-purple-500/10 transition-opacity duration-300 group-hover:bg-opacity-50'></div>
+              <div className='absolute inset-0 flex items-center justify-center text-center'>
+                <h2 className='text-3xl font-bold text-white sm:text-4xl lg:text-5xl'>
+                  {image.alt}
+                </h2>
+              </div>
             </div>
-          </CarouselItem>
+          </SwiperSlide>
         ))}
-      </CarouselContent>
-      <CarouselPrevious className='absolute left-4 top-1/2' />
-      <CarouselNext className='absolute right-4 top-1/2' />
-    </SCarousel>
+      </Swiper>
+    </div>
   );
 };
 
