@@ -5,7 +5,6 @@ export type Product = {
   name: string;
   slug: string;
   image: string;
-  banner?: string;
   price: number;
   makingCharge?: string;
   materialCost: string;
@@ -14,6 +13,8 @@ export type Product = {
   rating: number;
   numReviews: number;
   countInStock: number;
+  isFeatured: boolean;
+  __v: any;
 };
 
 const productSchema = new mongoose.Schema(
@@ -30,7 +31,6 @@ const productSchema = new mongoose.Schema(
     countInStock: { type: Number, required: true, default: 0 },
     description: { type: String, required: true },
     isFeatured: { type: Boolean, default: false },
-    banner: String,
   },
   {
     timestamps: true,

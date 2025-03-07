@@ -27,7 +27,7 @@ const getTopRated = cache(async () => {
 const getFeatured = async () => {
   await dbConnect();
   const products = await ProductModel.find({ isFeatured: true })
-    .limit(3)
+    .limit(12)
     .lean();
   return products as Product[];
 };
@@ -38,7 +38,7 @@ const getBySlug = cache(async (slug: string) => {
   return product as Product;
 });
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 12;
 const getByQuery = cache(
   async ({
     q,
