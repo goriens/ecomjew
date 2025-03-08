@@ -1,8 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+
 import ProductItem from '@/components/products/ProductItem';
 import { Rating } from '@/components/products/Rating';
 import productService from '@/lib/services/productService.client';

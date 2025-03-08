@@ -1,6 +1,6 @@
-import Form from './Form';
-
 import AdminLayout from '@/components/admin/AdminLayout';
+
+import Form from './Form';
 
 export function generateMetadata() {
   return {
