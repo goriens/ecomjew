@@ -5,6 +5,9 @@ import { getPlaiceholder } from 'plaiceholder';
 
 import AddToCart from '@/components/products/AddToCart';
 import { Rating } from '@/components/products/Rating';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import productService from '@/lib/services/productService';
 import { convertDocToObj } from '@/lib/utils';
 
@@ -39,59 +42,104 @@ const ProductPage = async ({ params }: { params: { slug: string } }) => {
   const { base64 } = await getPlaiceholder(buffer);
 
   return (
-    <div className='my-2'>
-      <div className='my-4'>
-        <Link href='/' className='btn'>{`<- Back to Products`}</Link>
+    <div className='container mx-auto p-4'>
+      {/* Back Button */}
+      <div className='mb-6'>
+        <Link href='/'>
+          <Button
+            variant='outline'
+            className='flex items-center gap-2 transition-colors hover:bg-gray-100'
+          >
+            <span>←</span>
+            <span>Back to Products</span>
+          </Button>
+        </Link>
       </div>
-      <div className='grid gap-4 md:grid-cols-4'>
-        <div className='relative aspect-square md:col-span-2'>
-          <Image
-            src={product.image}
-            alt={product.name}
-            placeholder='blur'
-            blurDataURL={base64}
-            width={640}
-            height={640}
-            sizes='100vw'
-            className='h-full w-full object-contain'
-          />
+
+      {/* Product Grid */}
+      <div className='flex flex-col gap-8 lg:flex-row'>
+        {/* Product Image */}
+        <div className='lg:w-1/2'>
+          <div className='relative aspect-square overflow-hidden rounded-lg shadow-lg transition-transform duration-300 hover:scale-105'>
+            <Image
+              src={product.image}
+              alt={product.name}
+              placeholder='blur'
+              blurDataURL={base64}
+              width={600}
+              height={600}
+              sizes='100vw'
+              className='h-full w-full object-cover'
+            />
+          </div>
         </div>
-        <div>
-          <ul className='space-y-4'>
-            <li>
-              <h1 className='text-xl'>{product.name}</h1>
-            </li>
-            <li>
-              <Rating
-                value={product.rating}
-                caption={`${product.numReviews} ratings`}
-              />
-            </li>
-            <li>Brand</li>
-            <li>{product.category}</li>
-            <li>
-              <div className='divider'></div>
-            </li>
-            <li>
-              <p>Description: {product.description}</p>
-            </li>
-          </ul>
-        </div>
-        <div>
-          <div className='card mt-3 bg-base-300 shadow-xl md:mt-0'>
-            <div className='card-body'>
-              <div className='flex justify-between'>
-                <div>Price</div>
-                <div>${product.price}</div>
+
+        {/* Product Details and Price Card */}
+        <div className='lg:w-1/2'>
+          <div className='flex flex-col gap-8'>
+            {/* Product Details */}
+            <div className='space-y-6'>
+              {/* Product Title */}
+              <h1 className='text-3xl font-bold text-gray-900'>
+                {product.name}
+              </h1>
+
+              {/* Rating */}
+              <div className='flex items-center gap-2'>
+                <Rating
+                  value={product.rating}
+                  caption={`${product.numReviews} ratings`}
+                />
+                <Badge variant='secondary' className='text-sm'>
+                  {product.numReviews} Reviews
+                </Badge>
               </div>
-              <div className='mb-2 flex justify-between'>
-                <div>Status</div>
-                <div>
-                  {product.countInStock > 0 ? 'In Stock' : 'Unavailable'}
+
+              {/* Brand and Category */}
+              <div className='space-y-2'>
+                <p className='text-sm text-gray-600'>
+                  <span className='font-semibold'>Brand:</span> No Brand
+                </p>
+                <p className='text-sm text-gray-600'>
+                  <span className='font-semibold'>Category:</span>{' '}
+                  {product.category}
+                </p>
+              </div>
+
+              {/* Divider */}
+              <div className='border-t border-gray-200'></div>
+
+              {/* Description */}
+              <div className='space-y-2'>
+                <h2 className='text-xl font-semibold text-gray-900'>
+                  Description
+                </h2>
+                <p className='text-gray-600'>{product.description}</p>
+              </div>
+            </div>
+
+            {/* Price and Add to Cart Card */}
+            <Card className='sticky top-4 h-fit shadow-lg transition-shadow hover:shadow-xl'>
+              <CardHeader>
+                <CardTitle className='text-2xl font-bold text-gray-900'>
+                  ${product.price}
+                </CardTitle>
+              </CardHeader>
+              <CardContent className='space-y-4'>
+                {/* Stock Status */}
+                <div className='flex items-center justify-between'>
+                  <span className='text-sm text-gray-600'>Status:</span>
+                  <Badge
+                    variant={
+                      product.countInStock > 0 ? 'default' : 'destructive'
+                    }
+                  >
+                    {product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}
+                  </Badge>
                 </div>
-              </div>
-              {product.countInStock !== 0 && (
-                <div className='card-actions justify-center'>
+
+                {/* Add to Cart */}
+                {product.countInStock > 0 && (
                   <AddToCart
                     item={{
                       ...convertDocToObj(product),
@@ -100,9 +148,9 @@ const ProductPage = async ({ params }: { params: { slug: string } }) => {
                       size: '',
                     }}
                   />
-                </div>
-              )}
-            </div>
+                )}
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
