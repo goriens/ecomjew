@@ -5,10 +5,10 @@ import Link from 'next/link';
 import { getPlaiceholder } from 'plaiceholder';
 
 import { Product } from '@/lib/models/ProductModel';
-
-import { Rating } from './Rating';
-import AddToCart from './AddToCart';
 import { convertDocToObj } from '@/lib/utils';
+
+import AddToCart from './AddToCart';
+import { Rating } from './Rating';
 import { Badge } from '../ui/badge';
 
 const ProductItem = ({ product }: { product: Product }) => {
