@@ -6,6 +6,8 @@ import { signIn, useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 
+import Socials from '@/components/auth/Socials';
+
 type Inputs = {
   email: string;
   password: string;
@@ -44,7 +46,7 @@ const Form = () => {
   };
 
   return (
-    <div className='card mx-auto my-4 max-w-sm bg-base-300'>
+    <div className='card mx-auto my-4 max-w-lg bg-base-300 md:my-10'>
       <div className='card-body'>
         <h1 className='card-title'>Sign in</h1>
         {params.get('error') && (
@@ -72,7 +74,8 @@ const Form = () => {
                   message: 'Email is invalid',
                 },
               })}
-              className='input input-bordered w-full max-w-sm'
+              placeholder='name@example.com'
+              className='input input-bordered w-full'
             />
             {errors.email?.message && (
               <div className='text-error'>{errors.email.message}</div>
@@ -88,7 +91,8 @@ const Form = () => {
               {...register('password', {
                 required: 'Password is required',
               })}
-              className='input input-bordered w-full max-w-sm'
+              placeholder='********'
+              className='input input-bordered w-full'
             />
             {errors.password?.message && (
               <div className='text-error'>{errors.password.message}</div>
@@ -107,6 +111,8 @@ const Form = () => {
             </button>
           </div>
         </form>
+        <div className='divider'>OR </div>
+        <Socials />
         <div>
           Need an account?{' '}
           <Link className='link' href={`/register?callbackUrl=${callbackUrl}`}>

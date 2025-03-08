@@ -6,9 +6,8 @@ import { useSession } from 'next-auth/react';
 import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
-import { FcGoogle } from 'react-icons/fc';
 
-import { Button } from '@/components/ui/button';
+import Socials from '@/components/auth/Socials';
 
 type Inputs = {
   name: string;
@@ -171,13 +170,7 @@ const Form = () => {
         </form>
 
         <div className='divider'>OR </div>
-        {/* <div>
-          <Button className='mb-2 w-full text-black' variant='outline'>
-            <FcGoogle size={22} className='mr-1' />
-            Continue With Google
-          </Button>
-        </div> */}
-
+        <Socials />
         <div className='text-sm'>
           Already have an account?{' '}
           <Link className='link' href={`/signin?callbackUrl=${callbackUrl}`}>
