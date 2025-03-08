@@ -7,6 +7,9 @@ import { getPlaiceholder } from 'plaiceholder';
 import { Product } from '@/lib/models/ProductModel';
 
 import { Rating } from './Rating';
+import AddToCart from './AddToCart';
+import { convertDocToObj } from '@/lib/utils';
+import { Badge } from '../ui/badge';
 
 const ProductItem = ({ product }: { product: Product }) => {
   // const buffer = await fetch(product.image).then(async (res) =>
@@ -63,13 +66,19 @@ const ProductItem = ({ product }: { product: Product }) => {
           <span className='text-2xl font-bold text-slate-900'>
             ₹{product.price}
           </span>
-          <motion.button
-            className='rounded-lg bg-gradient-to-r from-pink-900 to-purple-900 px-4 py-2 text-white transition-all duration-300 hover:from-pink-600 hover:to-purple-600'
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            Add to Cart
-          </motion.button>
+
+          {product.countInStock > 0 ? (
+            <AddToCart
+              item={{
+                ...convertDocToObj(product),
+                qty: 0,
+                color: '',
+                size: '',
+              }}
+            />
+          ) : (
+            <Badge variant='destructive'>Out of Stock</Badge>
+          )}
         </div>
       </motion.div>
     </motion.div>

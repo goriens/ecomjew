@@ -1,5 +1,5 @@
 'use client';
-
+import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -30,13 +30,15 @@ const AddToCart = ({ item }: { item: OrderItem }) => {
       </button>
     </div>
   ) : (
-    <button
-      className='btn btn-primary w-full'
+    <motion.button
+      className='rounded-lg bg-gradient-to-r from-pink-900 to-purple-900 px-4 py-2 text-white transition-all duration-300 hover:from-pink-600 hover:to-purple-600'
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
       type='button'
       onClick={addToCartHandler}
     >
       Add to cart
-    </button>
+    </motion.button>
   );
 };
 

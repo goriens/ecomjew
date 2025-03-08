@@ -31,6 +31,8 @@ export const generateMetadata = async ({
 const ProductPage = async ({ params }: { params: { slug: string } }) => {
   const product = await productService.getBySlug(params.slug);
 
+  console.log(product);
+
   if (!product) {
     return notFound();
   }
@@ -121,8 +123,11 @@ const ProductPage = async ({ params }: { params: { slug: string } }) => {
             {/* Price and Add to Cart Card */}
             <Card className='sticky top-4 h-fit shadow-lg transition-shadow hover:shadow-xl'>
               <CardHeader>
-                <CardTitle className='text-2xl font-bold text-gray-900'>
-                  ${product.price}
+                <CardTitle className='text-2xl font-bold text-success'>
+                  ₹ {product.price}{' '}
+                  <span className='text-xl italic text-destructive line-through'>
+                    ₹ {product.price * 1.3}
+                  </span>
                 </CardTitle>
               </CardHeader>
               <CardContent className='space-y-4'>

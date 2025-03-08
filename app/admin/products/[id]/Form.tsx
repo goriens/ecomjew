@@ -13,6 +13,7 @@ import { formatId } from '@/lib/utils';
 
 export default function ProductEditForm({ productId }: { productId: string }) {
   const { data: product, error } = useSWR(`/api/admin/products/${productId}`);
+
   const router = useRouter();
   const { trigger: updateProduct, isMutating: isUpdating } = useSWRMutation(
     `/api/admin/products/${productId}`,
@@ -83,7 +84,7 @@ export default function ProductEditForm({ productId }: { productId: string }) {
             required: required && `${name} is required`,
             pattern,
           })}
-          className='input input-bordered w-full max-w-md text-white'
+          className='input input-bordered w-full max-w-md'
         />
         {errors[id]?.message && (
           <div className='text-error'>{errors[id]?.message as string}</div>
