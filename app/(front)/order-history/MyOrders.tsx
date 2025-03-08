@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import React from 'react';
 import useSWR from 'swr';
 
+import { Badge } from '@/components/ui/badge';
 import { Order } from '@/lib/models/OrderModel';
 
 const MyOrders = () => {
@@ -23,7 +24,7 @@ const MyOrders = () => {
             <th>ID</th>
             <th>DATE</th>
             <th>TOTAL</th>
-            <th>PAID</th>
+            <th>PAYMENT</th>
             <th>DELIVERED</th>
             <th>ACTION</th>
           </tr>
@@ -31,15 +32,19 @@ const MyOrders = () => {
         <tbody>
           {orders.map((order: Order) => (
             <tr key={order._id}>
-              <td>{order._id.substring(20, 24)}</td>
+              <td>{order._id.substring(0, 4)}...</td>
               <td className='whitespace-nowrap'>
                 {order.createdAt.substring(0, 10)}
               </td>
-              <td>${order.totalPrice}</td>
+              <td>₹ {order.totalPrice}</td>
               <td>
-                {order.isPaid && order.paidAt
-                  ? `${order.paidAt.substring(0, 10)}`
-                  : 'not paid'}
+                {order.isPaid && order.paidAt ? (
+                  <Badge className='bg-green-700'>
+                    {order.paidAt.substring(0, 10)}
+                  </Badge>
+                ) : (
+                  <Badge variant='destructive'>Not Paid</Badge>
+                )}
               </td>
               <td>
                 {order.isDelivered && order.deliveredAt

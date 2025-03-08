@@ -79,8 +79,8 @@ const OrderDetails = ({ orderId, paypalClientId }: IOrderDetails) => {
   } = data;
 
   return (
-    <div>
-      <h1 className='py-4 text-2xl'>Order {orderId}</h1>
+    <div className='container'>
+      <h1 className='py-4 text-2xl'>Order Id - {orderId}</h1>
       <div className='my-4 grid md:grid-cols-4 md:gap-5'>
         <div className='md:col-span-3'>
           <div className='card bg-base-300'>
@@ -136,9 +136,7 @@ const OrderDetails = ({ orderId, paypalClientId }: IOrderDetails) => {
                             width={50}
                             height={50}
                           ></Image>
-                          <span className='px-2'>
-                            {item.name} ({item.color} {item.size})
-                          </span>
+                          <span className='px-2'>{item.name}</span>
                         </Link>
                       </td>
                       <td>{item.qty}</td>
