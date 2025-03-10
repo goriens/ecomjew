@@ -66,13 +66,8 @@ const Icons = () => {
       variants={containerVariants}
     >
       {/* Circular Layout */}
-      <div className=' grid grid-cols-1 flex-col gap-5 md:grid-cols-2 lg:grid-cols-4'>
+      <div className='container grid w-full grid-cols-1 flex-col gap-5 sm:grid-cols-2 lg:grid-cols-4'>
         {iconsData.map((icon, index) => {
-          const angle = (360 / iconsData.length) * index; // Calculate angle for positioning
-          const radius = 120; // Radius of the circle
-          const x = radius * Math.cos((angle * Math.PI) / 180); // X position
-          const y = radius * Math.sin((angle * Math.PI) / 180); // Y position
-
           return (
             <motion.div
               key={index}

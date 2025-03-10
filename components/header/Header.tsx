@@ -1,4 +1,5 @@
 import { AlignJustify } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 import Menu from './Menu';
@@ -13,11 +14,14 @@ const Header = () => {
             <label htmlFor='my-drawer' className='btn btn-square btn-ghost'>
               <AlignJustify />
             </label>
-            <Link
-              href='/'
-              className='ml-2 text-base font-semibold sm:ml-4 sm:text-lg'
-            >
-              Alankrita
+            <Link href='/' className='flex items-center space-x-2 sm:space-x-4'>
+              <Image
+                src='/images/logo.png'
+                alt='logo'
+                className='object-contain'
+                width={120}
+                height={10}
+              />
             </Link>
           </div>
           <Menu />

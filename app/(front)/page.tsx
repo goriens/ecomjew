@@ -37,7 +37,7 @@ const HomePage = () => {
         <ProductItems />
       </Suspense> */}
 
-      <Suspense fallback={<ProductItemsSkeleton qty={4} name='Top Rated!' />}>
+      <Suspense fallback={<ProductItemsSkeleton qty={5} name='Top Rated!' />}>
         <Slider />
       </Suspense>
 

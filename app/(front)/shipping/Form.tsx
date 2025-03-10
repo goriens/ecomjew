@@ -45,10 +45,14 @@ const Form = () => {
     name,
     required,
     pattern,
+    placeholder,
+    type,
   }: {
     id: keyof ShippingAddress;
     name: string;
     required?: boolean;
+    placeholder: string;
+    type: string;
     pattern?: ValidationRule<RegExp>;
   }) => (
     <div className='mb-2'>
@@ -56,13 +60,14 @@ const Form = () => {
         {name}
       </label>
       <input
-        type='text'
+        placeholder={placeholder}
+        type={type}
         id={id}
         {...register(id, {
           required: required && `${name} is required`,
           pattern,
         })}
-        className='input input-bordered w-full max-w-sm'
+        className='input input-bordered w-full'
       />
       {errors[id]?.message && (
         <div className='text-error'>{errors[id]?.message}</div>
@@ -73,15 +78,45 @@ const Form = () => {
   return (
     <div>
       <CheckoutSteps current={1} />
-      <div className='card mx-auto my-4 max-w-sm bg-base-300'>
+      <div className='card mx-auto my-4 max-w-lg bg-base-300'>
         <div className='card-body'>
           <h1 className='card-title'>Shipping Address</h1>
           <form onSubmit={handleSubmit(formSubmit)}>
-            <FormInput name='Full Name' id='fullName' required />
-            <FormInput name='Address' id='address' required />
-            <FormInput name='City' id='city' required />
-            <FormInput name='Postal Code' id='postalCode' required />
-            <FormInput name='Country' id='country' required />
+            <FormInput
+              name='Full Name'
+              id='fullName'
+              type='text'
+              required
+              placeholder='John Deo'
+            />
+            <FormInput
+              name='Address'
+              id='address'
+              type='address'
+              required
+              placeholder='Full Address'
+            />
+            <FormInput
+              name='City'
+              id='city'
+              required
+              placeholder='New Delhi'
+              type='address'
+            />
+            <FormInput
+              name='Postal Code'
+              id='postalCode'
+              type='number'
+              required
+              placeholder='110008'
+            />
+            <FormInput
+              name='Country'
+              id='country'
+              type='country'
+              required
+              placeholder='India'
+            />
             <div className='my-2'>
               <button
                 type='submit'

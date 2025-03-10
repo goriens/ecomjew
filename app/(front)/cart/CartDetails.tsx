@@ -19,7 +19,7 @@ const CartDetails = () => {
   if (!mounted) return <>Loading...</>;
 
   return (
-    <div>
+    <div className='container'>
       <h1 className='py-4 text-2xl'>Shopping Cart</h1>
       {items.length === 0 ? (
         <div>
@@ -81,7 +81,7 @@ const CartDetails = () => {
               </tbody>
             </table>
           </div>
-          <div className='card' bg-base-300>
+          <div className='card bg-base-300'>
             <div className='card-body'>
               <ul>
                 <li className='pb-3 text-xl'>
