@@ -2,105 +2,62 @@ import React from 'react';
 
 const Text = () => {
   return (
-    <div>
+    <div className='container'>
       <h1 className='mb-4 text-3xl font-bold'>
-        Fashion Corner: Leading E-Commerce Clothing Hub
+        Alankrita: Handcrafted Jewellery with a Touch of Elegance
       </h1>
       <h2 className='mb-2 text-2xl font-semibold'>
-        Your Ultimate Destination for Trendsetting Apparel
+        Discover the Art of Handmade Jewellery
       </h2>
       <p className='mb-4'>
-        At Fashion Corner, we believe that style is a way to say who you are
-        without having to speak. Explore our vast selection of apparel,
-        including trendy hoodies, elegant shirts, casual t-shirts, and much
-        more, all crafted to enhance your wardrobe with style and
-        sophistication. Whether you&apos;re updating your everyday look or
-        shopping for a special occasion, our extensive collection ensures that
-        every style preference and fashion need is catered to.
+        At Alankrita, we believe that jewellery is not just an accessory—it’s an
+        expression of artistry and tradition. Each piece in our collection is
+        handcrafted with precision and care, bringing you unique designs that
+        blend elegance with heritage. Explore our exquisite range of earrings,
+        necklaces, bangles, and rings, all created to celebrate the beauty of
+        craftsmanship.
       </p>
       <p className='mb-4'>
-        Our commitment to quality and staying in tune with the latest trends
-        ensures that every piece in our collection not only offers comfort but
-        also a high-fashion aesthetic. From the perfect fit of our tailored
-        shirts to the soft embrace of our casual tees, each item is meticulously
-        designed with the finest materials to offer you the best in fashion and
-        comfort. Our user-friendly online store makes shopping effortless,
-        delivering your favorite styles right to your doorstep with just a few
-        clicks.
+        Our artisans pour their passion into every creation, ensuring that each
+        jewellery piece tells a story of culture and finesse. Whether
+        you&apos;re looking for a statement necklace for a grand occasion or a
+        delicate bracelet for everyday wear, Alankrita offers timeless designs
+        that resonate with your style.
+      </p>
+      <h2 className='mb-2 text-2xl font-semibold'>Why Choose Alankrita?</h2>
+      <p className='mb-4'>
+        • Handcrafted Perfection: Each jewellery piece is handmade by skilled
+        artisans, ensuring exclusivity and intricate detailing.
       </p>
       <p className='mb-4'>
-        Dive into our diverse clothing lines to find your unique style. Whether
-        it’s the casual comfort of our well-crafted denim jeans, the classic
-        charm of our sweater collection, or the bold statement pieces from our
-        limited edition designer collaborations, Fashion Corner has it all. Each
-        product is showcased with detailed descriptions and high-quality images
-        to give you a close-up view of the fabric, fit, and colors available.
+        • Premium Materials: We use high-quality metals, semi-precious stones,
+        and eco-friendly materials to craft durable and stunning pieces.
       </p>
       <p className='mb-4'>
-        Stay ahead of fashion trends with our new arrivals that are constantly
-        updated to keep your style fresh and exciting. Sign up for our
-        newsletter to receive timely updates on the latest collections, seasonal
-        sales, and exclusive discounts tailored just for you. At Fashion Corner,
-        fashion meets convenience with a touch of elegance, providing you with
-        an unrivaled online shopping experience.
+        • Timeless Designs: From classic to contemporary, our designs suit every
+        taste and occasion, making them perfect for gifting and personal
+        collections.
+      </p>
+      <p className='mb-4'>
+        • Sustainable & Ethical: Supporting local craftsmanship and sustainable
+        production is at the heart of our brand. Every purchase helps preserve
+        traditional art forms.
       </p>
       <h2 className='mb-2 text-2xl font-semibold'>
-        Why Choose Fashion Corner?
+        Explore Our Exclusive Collection
       </h2>
       <p className='mb-4'>
-        At Fashion Corner, sustainability meets style. Our dedication to
-        sustainable fashion sets us apart, making every purchase a testament to
-        your commitment to environmental responsibility. Our eco-friendly
-        materials and ethical production processes aim to minimize environmental
-        impact while providing you with high-quality, durable clothing that you
-        can feel good about.
+        Alankrita offers a diverse selection of hand-crafted jewellery,
+        including:
       </p>
+      <p className='mb-4'>• Elegant earrings designed for every occasion</p>
+      <p className='mb-4'>• Statement necklaces that add charm to your look</p>
+      <p className='mb-4'>• Beautifully crafted bangles and bracelets</p>
+      <p className='mb-4'>• Unique rings to complement your personal style</p>
       <p className='mb-4'>
-        We also take pride in offering exceptional customer service. Our
-        friendly and knowledgeable customer support team is always eager to
-        assist you with any questions, ensuring a seamless shopping experience
-        from start to finish. With our hassle-free returns and exchanges policy,
-        shopping at Fashion Corner is completely worry-free.
-      </p>
-      <p className='mb-4'>
-        Moreover, our loyalty program rewards you for every purchase, turning
-        every dollar spent into points that can be redeemed for discounts on
-        future orders. Join our community of fashion enthusiasts and get
-        exclusive access to VIP events and sneak peeks at upcoming products.
-      </p>
-      <p className='mb-4'>
-        Immerse yourself in the world of Fashion Corner today. Discover our
-        curated selections, where each piece tells a story of quality
-        craftsmanship and style excellence. Refresh your wardrobe with key
-        pieces that you will love and cherish, and experience the perfect blend
-        of style, quality, and sustainability. Shop at Fashion Corner now to see
-        what fashion wonders await you.
-      </p>
-      <h2 className='mb-2 text-2xl font-semibold'>
-        Discover Exclusive Styles Only Available at Fashion Corner
-      </h2>
-      <p className='mb-4'>
-        Unearth a treasure trove of unique fashion pieces that you won&apos;t
-        find anywhere else. Our exclusive collections are designed with the
-        fashion-forward individual in mind, featuring limited edition apparel
-        that makes a bold statement. From runway-inspired designs to avant-garde
-        accessories, each item is a masterpiece that embodies creativity and
-        distinction.
-      </p>
-      <p className='mb-4'>
-        Our focus on exclusive offerings ensures that our customers enjoy a
-        distinct shopping experience that elevates their style to new heights.
-        By continually partnering with innovative designers and brands, we bring
-        fresh, dynamic collections that are at the forefront of fashion trends.
-        Explore these unique styles and add a touch of uniqueness to your
-        wardrobe that truly sets you apart from the crowd.
-      </p>
-      <p className='mb-4'>
-        Join the Fashion Corner family today and tap into the world of exclusive
-        fashion. Let us be your guide to discovering new styles that inspire and
-        empower you to express your individuality. Whether you&apos;re looking
-        for something bold and expressive or subtle and sophisticated, find it
-        at Fashion Corner.
+        Discover the magic of handmade jewellery at Alankrita and adorn yourself
+        with pieces that reflect grace, elegance, and tradition. Shop now and
+        experience the beauty of true craftsmanship!
       </p>
     </div>
   );

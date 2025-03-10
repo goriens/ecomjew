@@ -18,6 +18,7 @@ import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import useSWR from 'swr';
 
 import { formatNumber } from '@/lib/utils';
+import { BoxIcon, ShoppingBag, UserIcon } from 'lucide-react';
 
 ChartJS.register(
   CategoryScale,
@@ -38,16 +39,24 @@ export const options = {
     legend: {
       position: 'top',
     },
+    title: {
+      display: true,
+      text: 'Sales and Orders Overview',
+    },
+  },
+  animation: {
+    duration: 1000,
+    easing: 'easeInOutQuart',
   },
 };
 
 const Dashboard = () => {
   const { data: summary, error } = useSWR(`/api/admin/summary`);
 
-  console.log(summary);
+  console.log('summmaryyyyyyyy', summary);
 
-  if (error) return error.message;
-  if (!summary) return 'Loading...';
+  if (error) return <div className='text-red-500'>{error.message}</div>;
+  if (!summary) return <div className='text-blue-500'>Loading...</div>;
 
   const salesData = {
     labels: summary.salesData.map((x: { _id: string }) => x._id),
@@ -58,11 +67,12 @@ const Dashboard = () => {
         data: summary.salesData.map(
           (x: { totalSales: number }) => x.totalSales,
         ),
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
       },
     ],
   };
+
   const ordersData = {
     labels: summary.salesData.map((x: { _id: string }) => x._id),
     datasets: [
@@ -72,13 +82,14 @@ const Dashboard = () => {
         data: summary.salesData.map(
           (x: { totalOrders: number }) => x.totalOrders,
         ),
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
+        borderColor: 'rgba(153, 102, 255, 1)',
+        backgroundColor: 'rgba(153, 102, 255, 0.2)',
       },
     ],
   };
+
   const productsData = {
-    labels: summary.productsData.map((x: { _id: string }) => x._id), // 2022/01 2022/03
+    labels: summary.productsData.map((x: { _id: string }) => x._id),
     datasets: [
       {
         label: 'Category',
@@ -104,13 +115,14 @@ const Dashboard = () => {
       },
     ],
   };
+
   const usersData = {
-    labels: summary.usersData.map((x: { _id: string }) => x._id), // 2022/01 2022/03
+    labels: summary.usersData.map((x: { _id: string }) => x._id),
     datasets: [
       {
         label: 'Users',
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(75, 136, 177, 0.5)',
+        borderColor: 'rgba(255, 159, 64, 1)',
+        backgroundColor: 'rgba(255, 159, 64, 0.2)',
         data: summary.usersData.map(
           (x: { totalUsers: number }) => x.totalUsers,
         ),
@@ -119,58 +131,80 @@ const Dashboard = () => {
   };
 
   return (
-    <div>
-      <div className='stats stats-vertical my-4 inline-grid shadow md:stats-horizontal md:flex'>
-        <div className='stat'>
-          <div className='stat-title'>Sales</div>
-          <div className='stat-value text-primary'>
-            ${formatNumber(summary.ordersPrice)}
+    <div className='min-h-screen bg-gray-100 p-6'>
+      <div className='mb-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
+        <div className='rounded-lg bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl'>
+          <div className='text-gray-500'>Sales</div>
+          <div className='text-2xl font-bold text-blue-500'>
+            ₹{formatNumber(summary.ordersPrice)}
           </div>
-          <div className='stat-desc'>
-            <Link href='/admin/orders'>View sales</Link>
-          </div>
+          <Link
+            href='/admin/orders'
+            className='text-blue-500 hover:text-blue-700'
+          >
+            View sales
+          </Link>
         </div>
-        <div className='stat'>
-          <div className='stat-title'> Orders</div>
-          <div className='stat-value text-primary'>{summary.ordersCount}</div>
-          <div className='stat-desc'>
-            <Link href='/admin/orders'>View orders</Link>
+        <div className='rounded-lg bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl'>
+          <div className='text-gray-500'>Orders</div>
+          <div className='flex items-center gap-1 text-2xl font-bold text-purple-500'>
+            <ShoppingBag size={20} />
+            <span>{summary.ordersCount}</span>
           </div>
+          <Link
+            href='/admin/orders'
+            className='text-purple-500 hover:text-purple-700'
+          >
+            View orders
+          </Link>
         </div>
-        <div className='stat'>
-          <div className='stat-title'>Products</div>
-          <div className='stat-value text-primary'>{summary.productsCount}</div>
-          <div className='stat-desc'>
-            <Link href='/admin/products'>View products</Link>
+        <div className='rounded-lg bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl'>
+          <div className='text-gray-500'>Products</div>
+          <div className='flex items-center gap-1 text-2xl font-bold text-green-500'>
+            <BoxIcon />
+            <span>{summary.productsCount}</span>
           </div>
+          <Link
+            href='/admin/products'
+            className='text-green-500 hover:text-green-700'
+          >
+            View products
+          </Link>
         </div>
-        <div className='stat'>
-          <div className='stat-title'>Users</div>
-          <div className='stat-value text-primary'>{summary.usersCount}</div>
-          <div className='stat-desc'>
-            <Link href='/admin/users'>View users</Link>
+        <div className='rounded-lg bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl'>
+          <div className='text-gray-500'>Users</div>
+          <div className='flex items-center gap-1 text-2xl font-bold text-orange-500'>
+            <UserIcon /> <span>{summary.usersCount}</span>
           </div>
+          <Link
+            href='/admin/users'
+            className='text-orange-500 hover:text-orange-700'
+          >
+            View users
+          </Link>
         </div>
       </div>
-      <div className='grid gap-4 md:grid-cols-2'>
-        <div>
-          <h2 className='py-2 text-xl'>Sales Report</h2>
+
+      <div className='mb-8 grid grid-cols-1 gap-6 md:grid-cols-2'>
+        <div className='rounded-lg bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl'>
+          <h2 className='mb-4 text-xl font-semibold'>Sales Report</h2>
           <Line data={salesData} />
         </div>
-        <div>
-          <h2 className='py-2 text-xl'>Orders Report</h2>
+        <div className='rounded-lg bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl'>
+          <h2 className='mb-4 text-xl font-semibold'>Orders Report</h2>
           <Line data={ordersData} />
         </div>
       </div>
-      <div className='grid gap-4 md:grid-cols-2'>
-        <div>
-          <h2 className='py-2 text-xl'>Products Report</h2>
-          <div className='flex h-80 w-96 items-center justify-center '>
+
+      <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
+        <div className='rounded-lg bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl'>
+          <h2 className='mb-4 text-xl font-semibold'>Products Report</h2>
+          <div className='flex items-center justify-center'>
             <Doughnut data={productsData} />
           </div>
         </div>
-        <div>
-          <h2 className='py-2 text-xl'>Users Report</h2>
+        <div className='rounded-lg bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl'>
+          <h2 className='mb-4 text-xl font-semibold'>Users Report</h2>
           <Bar data={usersData} />
         </div>
       </div>
