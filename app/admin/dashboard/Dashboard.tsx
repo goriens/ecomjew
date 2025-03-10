@@ -13,12 +13,12 @@ import {
   BarElement,
   ArcElement,
 } from 'chart.js';
+import { BoxIcon, ShoppingBag, UserIcon } from 'lucide-react';
 import Link from 'next/link';
 import { Bar, Doughnut, Line } from 'react-chartjs-2';
 import useSWR from 'swr';
 
 import { formatNumber } from '@/lib/utils';
-import { BoxIcon, ShoppingBag, UserIcon } from 'lucide-react';
 
 ChartJS.register(
   CategoryScale,
