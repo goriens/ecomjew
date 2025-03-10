@@ -112,7 +112,7 @@ export default function SearchPage() {
           <ul className='flex flex-col gap-2'>
             <li>
               <Link
-                className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${'all' === category ? 'bg-primary/75 text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
+                className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${'all' === category ? 'bg-gradient-to-r from-pink-900/75 to-purple-900/75 text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
                 href={getFilterUrl({ c: 'all' })}
               >
                 All Categories
@@ -121,7 +121,7 @@ export default function SearchPage() {
             {categories.map((c) => (
               <li key={c}>
                 <Link
-                  className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${c === category ? 'bg-primary text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
+                  className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${c === category ? 'bg-gradient-to-r from-pink-900 to-purple-900 text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
                   href={getFilterUrl({ c })}
                 >
                   {c}
@@ -151,7 +151,7 @@ export default function SearchPage() {
           <ul className='flex flex-col gap-2'>
             <li>
               <Link
-                className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${'all' === price ? 'bg-primary/75 text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
+                className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${'all' === price ? 'bg-gradient-to-r from-pink-900/75 to-purple-900/75 text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
                 href={getFilterUrl({ p: 'all' })}
               >
                 All Price
@@ -160,7 +160,7 @@ export default function SearchPage() {
             {prices.map((p) => (
               <li key={p.value}>
                 <Link
-                  className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${p.value === price ? 'bg-primary text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
+                  className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${p.value === price ? 'bg-gradient-to-r from-pink-900 to-purple-900 text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
                   href={getFilterUrl({ p: p.value })}
                 >
                   {p.name}
@@ -190,7 +190,7 @@ export default function SearchPage() {
           <ul className='flex flex-col gap-2'>
             <li>
               <Link
-                className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${'all' === rating ? 'bg-primary/75 text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
+                className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${'all' === rating ? 'bg-gradient-to-r from-pink-900/75 to-purple-900/75 text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
                 href={getFilterUrl({ r: 'all' })}
               >
                 All Ratings
@@ -199,7 +199,7 @@ export default function SearchPage() {
             {ratings.map((r) => (
               <li key={r}>
                 <Link
-                  className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${`${r}` === rating ? 'bg-primary/75 text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
+                  className={`flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${`${r}` === rating ? 'bg-gradient-to-r from-pink-900 to-purple-900 text-white shadow-md' : 'hover:bg-base-100 hover:shadow-sm'}`}
                   href={getFilterUrl({ r: `${r}` })}
                 >
                   <Rating caption={' & up'} value={r} />
