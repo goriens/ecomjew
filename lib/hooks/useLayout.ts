@@ -6,7 +6,7 @@ type Layout = {
   drawerOpen: boolean;
 };
 const initialState: Layout = {
-  theme: 'system',
+  theme: 'light',
   drawerOpen: false,
 };
 
