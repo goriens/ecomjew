@@ -22,7 +22,7 @@ const Header = () => {
           </div>
           <Menu />
         </div>
-        <div className='block bg-base-300 bg-gradient-to-br from-pink-100 to-purple-100 pb-3 text-center md:hidden'>
+        <div className='mx-2 block bg-gradient-to-br from-pink-100 to-purple-100 pb-3 text-center md:hidden'>
           <SearchBox />
         </div>
       </nav>
