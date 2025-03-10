@@ -66,7 +66,7 @@ export default function ProductAddForm() {
             required: required && `${name} is required`,
             pattern,
           })}
-          className='input input-bordered w-full max-w-md text-white'
+          className='input input-bordered w-full max-w-md'
         />
         {errors[id]?.message && (
           <div className='text-error'>{errors[id]?.message as string}</div>
