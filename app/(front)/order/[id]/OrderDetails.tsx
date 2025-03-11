@@ -62,7 +62,7 @@ const OrderDetails = ({ orderId, paypalClientId }: IOrderDetails) => {
   const { data, error } = useSWR(`/api/orders/${orderId}`);
 
   if (error) return error.message;
-  if (!data) return 'Loading...';
+  if (!data) return <div className='container'>Loading...</div>;
 
   const {
     paymentMethod,
@@ -140,7 +140,7 @@ const OrderDetails = ({ orderId, paypalClientId }: IOrderDetails) => {
                         </Link>
                       </td>
                       <td>{item.qty}</td>
-                      <td>${item.price}</td>
+                      <td>₹{item.price}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -157,25 +157,25 @@ const OrderDetails = ({ orderId, paypalClientId }: IOrderDetails) => {
                 <li>
                   <div className='mb-2 flex justify-between'>
                     <div>Items</div>
-                    <div>${itemsPrice}</div>
+                    <div>₹{itemsPrice}</div>
                   </div>
                 </li>
                 <li>
                   <div className='mb-2 flex justify-between'>
                     <div>Tax</div>
-                    <div>${taxPrice}</div>
+                    <div>₹{taxPrice}</div>
                   </div>
                 </li>
                 <li>
                   <div className='mb-2 flex justify-between'>
                     <div>Shipping</div>
-                    <div>${shippingPrice}</div>
+                    <div>₹{shippingPrice}</div>
                   </div>
                 </li>
                 <li>
                   <div className='mb-2 flex justify-between'>
                     <div>Total</div>
-                    <div>${totalPrice}</div>
+                    <div>₹{totalPrice}</div>
                   </div>
                 </li>
 
