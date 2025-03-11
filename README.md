@@ -2,7 +2,7 @@
 
 Features:
 
-- Tailwind design + DaisyUI, Shadcn/ui
+- Tailwind design, Shadcn/ui
 - Typescript
 - MongoDB integration
 - Cloudinary integration

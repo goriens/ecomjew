@@ -53,8 +53,6 @@ export const options = {
 const Dashboard = () => {
   const { data: summary, error } = useSWR(`/api/admin/summary`);
 
-  console.log('summmaryyyyyyyy', summary);
-
   if (error) return <div className='text-red-500'>{error.message}</div>;
   if (!summary) return <div className='text-blue-500'>Loading...</div>;
 
