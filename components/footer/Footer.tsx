@@ -63,7 +63,7 @@ const Footer = () => {
           {/* Social Connect Column */}
           <div className='space-y-4'>
             <h3 className='text-lg font-bold'>Follow Us</h3>
-            <p className='text-gray-400 transition-colors'>
+            <p className='text-sm text-gray-400 transition-colors'>
               1st Floor, 22, Lake Place Rd, Lake Market, Kalighat, Kolkata, West
               Bengal 700029
             </p>
