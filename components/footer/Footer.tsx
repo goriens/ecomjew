@@ -11,24 +11,24 @@ const Footer = () => {
         <div className='grid grid-cols-1 gap-8 md:grid-cols-4'>
           {/* Info Column */}
           <div className='space-y-4'>
-            <h3 className='text-lg font-bold'>About Us</h3>
-            <p className='text-sm text-gray-400'>
+            <h3 className='text-2xl font-bold'>About Us</h3>
+            <p className='text-gray-400'>
               We are a creative team dedicated to building amazing products and
               experiences for our users.
             </p>
-            <p className='text-sm text-gray-400'>
+            <p className='text-gray-400'>
               &copy; {new Date().getFullYear()} Alankrita. All rights reserved.
             </p>
           </div>
 
           {/* Category Column */}
           <div className='space-y-4'>
-            <h3 className='text-lg font-bold'>Categories</h3>
+            <h3 className='text-2xl font-bold'>Categories</h3>
             <ul className='space-y-2'>
               <li>
                 <Link
                   href='/search?category=All'
-                  className='text-sm text-gray-400 hover:text-white'
+                  className='text-gray-400 hover:text-white'
                 >
                   All
                 </Link>
@@ -36,7 +36,7 @@ const Footer = () => {
               <li>
                 <Link
                   href='/search?category=Clay Jewellery'
-                  className='text-sm text-gray-400 hover:text-white'
+                  className='text-gray-400 hover:text-white'
                 >
                   Clay Jewellery
                 </Link>
@@ -44,7 +44,7 @@ const Footer = () => {
               <li>
                 <Link
                   href='/search?category=Embroidery Jewellery'
-                  className='text-sm text-gray-400 hover:text-white'
+                  className='text-gray-400 hover:text-white'
                 >
                   Embroidery Jewellery
                 </Link>
@@ -52,7 +52,7 @@ const Footer = () => {
               <li>
                 <Link
                   href='/search?category=Hand Painted Jewellery'
-                  className='text-sm text-gray-400 hover:text-white'
+                  className='text-gray-400 hover:text-white'
                 >
                   Hand Painted Jewellery
                 </Link>
@@ -62,8 +62,8 @@ const Footer = () => {
 
           {/* Social Connect Column */}
           <div className='space-y-4'>
-            <h3 className='text-lg font-bold'>Follow Us</h3>
-            <p className='text-sm text-gray-400 transition-colors'>
+            <h3 className='text-2xl font-bold'>Follow Us</h3>
+            <p className='text-gray-400 transition-colors'>
               1st Floor, 22, Lake Place Rd, Lake Market, Kalighat, Kolkata, West
               Bengal 700029
             </p>
@@ -97,8 +97,8 @@ const Footer = () => {
 
           {/* Newsletter Column */}
           <div className='space-y-4'>
-            <h3 className='text-lg font-bold'>Subscribe to Our Newsletter</h3>
-            <p className='text-sm text-gray-400'>
+            <h3 className='text-2xl font-bold'>Subscribe to Our Newsletter</h3>
+            <p className='text-gray-400'>
               Get the latest updates and news straight to your inbox.
             </p>
             <div className='flex space-x-2'>
