@@ -2,6 +2,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getPlaiceholder } from 'plaiceholder';
+import slugify from 'slugify';
 
 import AddToCart from '@/components/products/AddToCart';
 import { Rating } from '@/components/products/Rating';
@@ -30,8 +31,6 @@ export const generateMetadata = async ({
 
 const ProductPage = async ({ params }: { params: { slug: string } }) => {
   const product = await productService.getBySlug(params.slug);
-
-  console.log(product);
 
   if (!product) {
     return notFound();

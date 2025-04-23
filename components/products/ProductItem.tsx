@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import Link from 'next/link';
 import { getPlaiceholder } from 'plaiceholder';
+import slugify from 'slugify';
 
 import { Product } from '@/lib/models/ProductModel';
 import { convertDocToObj } from '@/lib/utils';
@@ -17,6 +18,7 @@ const ProductItem = ({ product }: { product: Product }) => {
   // );
 
   // const { base64 } = await getPlaiceholder(buffer);
+  const cleanSlug = slugify(product.slug, { lower: true, strict: true });
 
   return (
     <motion.div
@@ -51,7 +53,7 @@ const ProductItem = ({ product }: { product: Product }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <Link href={`/product/${product.slug}`}>
+        <Link href={`/product/${cleanSlug}`}>
           <h3 className='card-title line-clamp-1 font-normal text-slate-800 transition-colors duration-300 hover:text-primary'>
             {product.name}
           </h3>

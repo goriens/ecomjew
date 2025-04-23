@@ -1,4 +1,5 @@
 import { cache } from 'react';
+import slugify from 'slugify';
 
 import dbConnect from '@/lib/dbConnect';
 import ProductModel, { Product } from '@/lib/models/ProductModel';
@@ -34,8 +35,14 @@ const getFeatured = async () => {
 
 const getBySlug = cache(async (slug: string) => {
   await dbConnect();
-  const product = await ProductModel.findOne({ slug }).lean();
-  return product as Product;
+
+  const products = await ProductModel.find().lean();
+
+  const matchedProduct = products.find(
+    (product) => slugify(product.slug, { lower: true, strict: true }) === slug,
+  );
+
+  return matchedProduct || null;
 });
 
 const PAGE_SIZE = 12;
