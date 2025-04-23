@@ -9,7 +9,6 @@ import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { FcNext, FcPrevious } from 'react-icons/fc';
 
 const jewelleryImages = [
   {
