@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 import { ValidationRule, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import useSWRMutation from 'swr/mutation';
@@ -40,18 +39,35 @@ export default function ProductAddForm() {
     await createProduct(formData);
   };
 
+  const generateSlug = (name: string) => {
+    if (name) {
+      return name
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+        .replace(/\s+/g, '-') // Replace spaces with hyphens
+        .replace(/-+/g, '-') // Replace multiple hyphens with single hyphen
+        .slice(0, 100); // Limit length
+    }
+    return '';
+  };
+
   const FormInput = ({
     id,
     name,
     required,
     pattern,
     placeholder,
+    disabled,
+    onChange,
   }: {
     id: keyof Product;
     name: string;
     required?: boolean;
     placeholder?: string;
     pattern?: ValidationRule<RegExp>;
+    disabled?: boolean;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   }) => (
     <div className='mb-6 md:flex'>
       <label className='label md:w-1/5' htmlFor={id}>
@@ -62,10 +78,12 @@ export default function ProductAddForm() {
           type='text'
           id={id}
           placeholder={placeholder}
+          disabled={disabled}
           {...register(id, {
             required: required && `${name} is required`,
             pattern,
           })}
+          onChange={onChange}
           className='input input-bordered w-full max-w-md'
         />
         {errors[id]?.message && (
@@ -96,7 +114,6 @@ export default function ProductAddForm() {
         },
       );
       const data = await res.json();
-      console.log(data.secure_url);
       setValue('image', data.secure_url);
       toast.success('File uploaded successfully', {
         id: toastId,
@@ -118,12 +135,17 @@ export default function ProductAddForm() {
             id='name'
             required
             placeholder='Product Name'
+            onChange={(e) => {
+              const slug = generateSlug(e.target.value);
+              setValue('slug', slug);
+            }}
           />
           <FormInput
             name='Slug'
             id='slug'
             required
             placeholder='Product Slug'
+            disabled={true}
           />
           <FormInput
             name='Image'
@@ -184,7 +206,7 @@ export default function ProductAddForm() {
             {isCreating && <span className='loading loading-spinner'></span>}
             Add Product
           </button>
-          <Link className='btn ml-4 ' href='/admin/products'>
+          <Link className='btn ml-4' href='/admin/products'>
             Cancel
           </Link>
         </form>

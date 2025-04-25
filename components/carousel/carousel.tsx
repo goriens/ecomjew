@@ -91,8 +91,8 @@ const Carousel = () => {
               </div>
 
               {/* Gradient overlay */}
-              <div className='absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent'></div>
-              <div className='absolute inset-0 bg-gradient-to-r from-black/70 via-black/30 to-transparent'></div>
+              <div className='absolute inset-0 bg-gradient-to-t '></div>
+              <div className='absolute inset-0 bg-gradient-to-r '></div>
 
               {/* Content */}
               <div className='container relative z-10 flex h-full items-center'>
