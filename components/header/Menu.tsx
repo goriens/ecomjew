@@ -30,8 +30,7 @@ const Menu = () => {
       </div>
       <ul className='flex gap-2'>
         <li className='flex items-center gap-2 md:gap-4'>
-          <label className='swap swap-rotate'>
-            {/* this hidden checkbox controls the state */}
+          {/* <label className='swap swap-rotate'>
             <input
               type='checkbox'
               checked={theme === 'light'}
@@ -39,7 +38,7 @@ const Menu = () => {
             />
             <Sun className='swap-on' />
             <Moon className='swap-off' />
-          </label>
+          </label> */}
           <Link
             href='/cart'
             className='relative mr-1'
