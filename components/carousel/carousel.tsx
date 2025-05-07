@@ -12,23 +12,23 @@ import 'swiper/css/pagination';
 
 const jewelleryImages = [
   {
-    id: 3,
+    id: 1,
     src: '/images/banner/slide3.jpeg',
-    alt: 'Pearl Earrings',
+    alt: 'Slide1',
     title: 'Elegant Embroidery Choker',
     cta: 'Discover More',
   },
   {
-    id: 1,
+    id: 2,
     src: '/images/banner/slide2.jpeg',
-    alt: 'Gold Necklace',
+    alt: 'Slide2',
     title: 'Hand Embroidery Jewellery',
     cta: 'Shop Now',
   },
   {
-    id: 2,
+    id: 3,
     src: '/images/banner/slide1.jpeg',
-    alt: 'Diamond Ring',
+    alt: 'Slide3',
     title: 'Hand Painted Jewellery',
     cta: 'Explore Collection',
   },
