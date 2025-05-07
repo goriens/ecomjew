@@ -13,7 +13,7 @@ import 'swiper/css/pagination';
 const jewelleryImages = [
   {
     id: 1,
-    src: '/images/banner/slide3.jpeg',
+    src: '/images/banner/slide32.jpeg',
     alt: 'Slide1',
     title: 'Elegant Embroidery Choker',
     cta: 'Discover More',
