@@ -40,7 +40,7 @@ const Icons = () => {
     {
       icon: <Truck width={48} height={48} strokeWidth={1} />,
       title: 'Free Shipping',
-      description: 'Order above $200',
+      description: 'Order above ₹999',
     },
     {
       icon: <Wallet width={48} height={48} strokeWidth={1} />,
@@ -55,7 +55,7 @@ const Icons = () => {
     {
       icon: <Phone width={48} height={48} strokeWidth={1} />,
       title: '24/7 Support',
-      description: 'Phone and Email support',
+      description: 'Phone - +91 9073401384',
     },
   ];
 

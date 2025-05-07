@@ -137,7 +137,7 @@ export default function OrderEditPage() {
             </div>
             <div>
               <p className='text-sm text-muted-foreground'>Total Price</p>
-              <p className='font-medium'>${order.totalPrice.toFixed(2)}</p>
+              <p className='font-medium'>₹{order.totalPrice.toFixed(2)}</p>
             </div>
             <div>
               <p className='text-sm text-muted-foreground'>Shipping Address</p>
@@ -315,8 +315,8 @@ export default function OrderEditPage() {
                   </TableCell>
                   <TableCell>{item.name}</TableCell>
                   <TableCell>{item.qty}</TableCell>
-                  <TableCell>${item.price.toFixed(2)}</TableCell>
-                  <TableCell>${(item.qty * item.price).toFixed(2)}</TableCell>
+                  <TableCell>₹{item.price.toFixed(2)}</TableCell>
+                  <TableCell>₹{(item.qty * item.price).toFixed(2)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const PlaceOrderPage = () => {
   return (
-    <div>
+    <div className='container'>
       <Form />
     </div>
   );

@@ -12,36 +12,25 @@ import 'swiper/css/pagination';
 
 const jewelleryImages = [
   {
-    id: 1,
-    src: '/images/banner/slide1.jpeg',
-    alt: 'Diamond Ring',
-    title: 'Elegant Diamond Rings',
-    subtitle: 'Timeless beauty for every occasion',
-    cta: 'Explore Collection',
-  },
-  {
-    id: 2,
-    src: '/images/banner/slide2.jpeg',
-    alt: 'Gold Necklace',
-    title: 'Luxury Gold Necklaces',
-    subtitle: 'Handcrafted perfection for your elegance',
-    cta: 'Shop Now',
-  },
-  {
     id: 3,
-    src: '/images/banner/earrings1.webp',
+    src: '/images/banner/slide3.jpeg',
     alt: 'Pearl Earrings',
-    title: 'Exquisite Pearl Earrings',
-    subtitle: "Nature's elegance for your style",
+    title: 'Elegant Embroidery Choker',
     cta: 'Discover More',
   },
   {
-    id: 4,
-    src: '/images/banner/ring1.jpg',
-    alt: 'Silver Bracelet',
-    title: 'Chic Silver Bracelets',
-    subtitle: 'Modern designs for everyday wear',
-    cta: 'View Selection',
+    id: 1,
+    src: '/images/banner/slide2.jpeg',
+    alt: 'Gold Necklace',
+    title: 'Hand Embroidery Jewellery',
+    cta: 'Shop Now',
+  },
+  {
+    id: 2,
+    src: '/images/banner/slide1.jpeg',
+    alt: 'Diamond Ring',
+    title: 'Hand Painted Jewellery',
+    cta: 'Explore Collection',
   },
 ];
 
@@ -110,14 +99,6 @@ const Carousel = () => {
                   >
                     {image.title}
                   </motion.h2>
-                  <motion.p
-                    className='mt-4 text-lg sm:text-xl'
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.7 }}
-                  >
-                    {image.subtitle}
-                  </motion.p>
                   <motion.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}

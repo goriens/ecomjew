@@ -8,6 +8,20 @@ import CheckoutSteps from '@/components/checkout/CheckoutSteps';
 import useCartService from '@/lib/hooks/useCartStore';
 import { ShippingAddress } from '@/lib/models/OrderModel';
 
+// List of countries for dropdown
+const countries = [
+  'India',
+  'United States',
+  'United Kingdom',
+  'Canada',
+  'Australia',
+  'Germany',
+  'France',
+  'Japan',
+  'China',
+  'Brazil',
+];
+
 const Form = () => {
   const router = useRouter();
   const { saveShippingAddress, shippingAddress } = useCartService();
@@ -23,16 +37,16 @@ const Form = () => {
       address: '',
       city: '',
       postalCode: '',
-      country: '',
+      country: 'India', // Default to India
     },
   });
 
   useEffect(() => {
-    setValue('fullName', shippingAddress.fullName);
-    setValue('address', shippingAddress.address);
-    setValue('city', shippingAddress.city);
-    setValue('postalCode', shippingAddress.postalCode);
-    setValue('country', shippingAddress.country);
+    setValue('fullName', shippingAddress.fullName || '');
+    setValue('address', shippingAddress.address || '');
+    setValue('city', shippingAddress.city || '');
+    setValue('postalCode', shippingAddress.postalCode || '');
+    setValue('country', shippingAddress.country || 'India');
   }, [setValue, shippingAddress]);
 
   const formSubmit: SubmitHandler<ShippingAddress> = async (form) => {
@@ -110,13 +124,25 @@ const Form = () => {
               required
               placeholder='110008'
             />
-            <FormInput
-              name='Country'
-              id='country'
-              type='country'
-              required
-              placeholder='India'
-            />
+            <div className='mb-2'>
+              <label className='label' htmlFor='country'>
+                Country
+              </label>
+              <select
+                id='country'
+                {...register('country', { required: 'Country is required' })}
+                className='input input-bordered w-full'
+              >
+                {countries.map((country) => (
+                  <option key={country} value={country}>
+                    {country}
+                  </option>
+                ))}
+              </select>
+              {errors.country?.message && (
+                <div className='text-error'>{errors.country?.message}</div>
+              )}
+            </div>
             <div className='my-2'>
               <button
                 type='submit'

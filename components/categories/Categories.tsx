@@ -2,9 +2,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import Overlay from './Overlay';
-import Handbags from '../../public/images/banner/bracelet1.jpg';
-import Pants from '../../public/images/banner/earrings1.webp';
-import Shirts from '../../public/images/banner/ring1.jpg';
+import Clay from '../../public/images/categories/cat1.jpeg';
+import HandPent from '../../public/images/categories/cat2.jpeg';
+import Emb from '../../public/images/categories/cat3.jpeg';
 
 const Categories = () => {
   return (
@@ -14,7 +14,7 @@ const Categories = () => {
         className='group relative col-span-2 row-span-1 overflow-hidden rounded-md md:row-span-2'
       >
         <Image
-          src={Shirts}
+          src={Clay}
           alt='Clay Jewellery'
           width={500}
           height={500}
@@ -29,7 +29,7 @@ const Categories = () => {
         className='group relative col-span-2 overflow-hidden'
       >
         <Image
-          src={Pants}
+          src={Emb}
           alt='Embroidery Jewellery'
           width={500}
           height={500}
@@ -44,7 +44,7 @@ const Categories = () => {
         className='group relative col-span-2 overflow-hidden'
       >
         <Image
-          src={Handbags}
+          src={HandPent}
           alt='Hand Painted Jewellery'
           width={500}
           height={500}
