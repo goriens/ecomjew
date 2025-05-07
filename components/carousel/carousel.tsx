@@ -28,7 +28,7 @@ const jewelleryImages = [
   {
     id: 3,
     src: '/images/banner/slide1.jpeg',
-    alt: 'Slide3',
+    alt: '',
     title: 'Hand Painted Jewellery',
     cta: 'Explore Collection',
   },
